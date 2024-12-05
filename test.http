@@ -1,5 +1,5 @@
 ### create user
-POST http://localhost:8000/users
+POST http://localhost:8000/users/create
 Content-Type: application/json
 {
   "name":"User Test",
@@ -15,19 +15,19 @@ GET http://localhost:8000/users
 Content-Type: application/json
 
 ### update user
-PUT http://localhost:8000/users/1
+PUT http://localhost:8000/users/update/1
 Content-Type: application/json
 {
-  "name":"User Test",
+  "name":"User Test 2",
   "email":"pojok5@gmail.com"
 }
 
 ### delete user
-DELETE http://localhost:8000/users/3
+DELETE http://localhost:8000/users/delete/7
 Content-Type: application/json
 
 ### create personaldata
-POST http://localhost:8000/personaldata
+POST http://localhost:8000/personaldata/create
 Content-Type: application/json
 {
   "user_id":1,
@@ -44,7 +44,7 @@ GET http://localhost:8000/personaldata
 Content-Type: application/json
 
 ### update personaldata
-PUT http://localhost:8000/personaldata/1
+PUT http://localhost:8000/personaldata/update/1
 Content-Type: application/json
 {
   "user_id":1,
@@ -53,5 +53,5 @@ Content-Type: application/json
 }
 
 ### delete personaldata
-DELETE http://localhost:8000/personaldata/3
+DELETE http://localhost:8000/personaldata/delete/5
 Content-Type: application/json
