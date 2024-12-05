@@ -4,6 +4,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\Config\Database;
 use App\Core\Router;
+use App\Core\Logger;
 use App\Controllers\UserController;
 use App\Controllers\PersonalDataController;
 
@@ -11,6 +12,7 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
 $dotenv->load();
 
 $db = (new Database())->getConnection();
+$logger = Logger::getLogger();
 
 // Membuat instance dari Router
 $router = new Router($db);
