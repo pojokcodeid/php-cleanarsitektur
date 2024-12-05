@@ -17,8 +17,26 @@ class Router {
         $this->routes[$route] = ['action' => $action, 'methods' => $methods];
     }
 
+    private function getUrl(){
+        $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http');
+        $host = $_SERVER['HTTP_HOST'];
+        $request_uri = $_SERVER['REQUEST_URI'];
+        $current_url = $scheme . '://' . $host . $request_uri;
+        return $current_url;
+    }
+
     public function dispatch() {
-        $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $url = $this->getUrl();
+        if (isset($_ENV['BASE_URL']) && !empty($_ENV['BASE_URL'])) {
+            $pattern = '/' . preg_quote($_ENV['BASE_URL'], '/') . '/';
+            if (preg_match($pattern, $url)) {
+                $url = str_replace($_ENV['BASE_URL'], '', $url);
+            } else {
+                $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+            }
+        } else {
+            $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        }
         $url = trim($url, '/');
         $requestMethod = $_SERVER['REQUEST_METHOD'];
 

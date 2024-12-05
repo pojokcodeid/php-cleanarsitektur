@@ -3,7 +3,7 @@ POST http://localhost:8000/users/create
 Content-Type: application/json
 {
   "name":"User Test",
-  "email":"pojok2@gmail.com"
+  "email":"pojok@gmail.com"
 }
 
 ### get user by id
