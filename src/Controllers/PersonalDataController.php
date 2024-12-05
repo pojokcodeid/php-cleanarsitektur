@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Services\PersonalDataService;
+use App\Validators\PersonalDataValidator;
 use PDOException;
 
 class PersonalDataController {
@@ -16,6 +17,15 @@ class PersonalDataController {
         header('Content-Type: application/json');
 
         $data = json_decode(file_get_contents("php://input"), true);
+
+        $validator = new PersonalDataValidator();
+        $validation = $validator->validate($data);
+
+        if ($validation->failed()) {
+            http_response_code(400);
+            echo json_encode(["errors" => $validation->errors()]);
+            return;
+        }
 
         try {
             $result = $this->personalDataService->createPersonalData($data);
@@ -55,6 +65,15 @@ class PersonalDataController {
         header('Content-Type: application/json');
 
         $data = json_decode(file_get_contents("php://input"), true);
+
+        $validator = new PersonalDataValidator();
+        $validation = $validator->validate($data);
+
+        if ($validation->failed()) {
+            http_response_code(400);
+            echo json_encode(["errors" => $validation->errors()]);
+            return;
+        }
 
         try {
             $result = $this->personalDataService->updatePersonalData($id, $data);
